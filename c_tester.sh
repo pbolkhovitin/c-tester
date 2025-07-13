@@ -10,7 +10,7 @@ readonly DEFAULT_SRC_DIR="src"
 readonly DEFAULT_REPORT_FILE="test_report.txt"
 readonly DEFAULT_TEST_DATA_FILE="test_data.txt"
 readonly CONFIG_FILE=".c_tester.conf"
-readonly VERSION="0.1.53"
+readonly VERSION="0.1.5"
 
 # ========================
 # НАСТРОЙКИ ЦВЕТОВ
