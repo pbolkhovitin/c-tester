@@ -11,7 +11,7 @@
 ## Установка
 
 ```bash
-git clone https://github.com/yourname/c-tester.git
+git clone https://github.com/pbolkhovitin/c-tester.git
 cd c-tester
 chmod +x c_tester.sh
 
