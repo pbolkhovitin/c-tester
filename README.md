@@ -20,4 +20,4 @@ chmod +x c_tester.sh
 ```bash
 ./c_tester.sh [--gui]
     -- gui - графический режим
-```
+```bash
