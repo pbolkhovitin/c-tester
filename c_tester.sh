@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 # C Project Tester v0.1.1
-
 # Автоматизированное тестирование C проектов
 # Лицензия: MIT
 
