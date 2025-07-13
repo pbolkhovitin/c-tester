@@ -1,0 +1,7 @@
+*.o
+*.out
+*.swp
+*.swo
+*.log
+test_report.txt
+.c_tester.conf
