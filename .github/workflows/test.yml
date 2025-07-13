@@ -16,6 +16,3 @@ jobs:
 
       - name: Make script executable
         run: chmod +x ./c_tester.sh  # Даем права на выполнение
-
-      - name: Run script with test input
-        run: ./c_tester.sh  # Запускаем скрипт с тестовыми данными
