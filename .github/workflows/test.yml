@@ -15,14 +15,14 @@ jobs:
         uses: actions/checkout@v4  # Клонируем репозиторий
 
       - name: Make script executable
-        run: chmod +x ./your_script.sh  # Даем права на выполнение
+        run: chmod +x ./c_tester.sh  # Даем права на выполнение
 
       - name: Run script with test input
-        run: ./your_script.sh "test input"  # Запускаем скрипт с тестовыми данными
+        run: ./c_tester.sh  # Запускаем скрипт с тестовыми данными
 
       - name: Verify output (optional)
         run: |
-          OUTPUT=$(./your_script.sh "test input")
+          OUTPUT=$(./c_tester.sh)
           if [[ "$OUTPUT" != "expected output" ]]; then
             echo "Test failed: Unexpected output"
             exit 1
