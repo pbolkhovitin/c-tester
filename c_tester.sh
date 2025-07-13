@@ -1,28 +1,39 @@
-#!/bin/bash
-# C Project Tester v0.1.0
+#!/usr/bin/env bash
+# C Project Tester v0.1.1
+
 # Автоматизированное тестирование C проектов
 # Лицензия: MIT
 
-# Конфигурация
-DEFAULT_SRC_DIR="src"
-DEFAULT_REPORT_FILE="test_report.txt"
-DEFAULT_TEST_DATA_FILE="test_data.txt"
-CONFIG_FILE=".c_tester.conf"
+# ========================
+# КОНФИГУРАЦИЯ
+# ========================
+readonly DEFAULT_SRC_DIR="src/"
+readonly DEFAULT_REPORT_FILE="test_report.txt"
+readonly DEFAULT_TEST_DATA_FILE="test_data.txt"
+readonly CONFIG_FILE=".c_tester.conf"
+readonly VERSION="0.1.1"
 
-# Цвета для вывода
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-YELLOW='\033[1;33m'
-BLUE='\033[0;34m'
-NC='\033[0m' # No Color
+# ========================
+# НАСТРОЙКИ ЦВЕТОВ
+# ========================
+readonly RED='\033[0;31m'
+readonly GREEN='\033[0;32m'
+readonly YELLOW='\033[1;33m'
+readonly BLUE='\033[0;34m'
+readonly NC='\033[0m'
 
-# Инициализация переменных
-SELECTED_FILES=()
-SRC_DIR=""
-REPORT_FILE=""
-TEST_DATA_FILE=""
+# ========================
+# ГЛОБАЛЬНЫЕ ПЕРЕМЕННЫЕ
+# ========================
+declare -a SELECTED_FILES=()
+declare SRC_DIR=""
+declare REPORT_FILE=""
+declare TEST_DATA_FILE=""
 
-# Инициализация настроек по умолчанию
+# ========================
+# ОСНОВНЫЕ ФУНКЦИИ
+# ========================
+
 init_config() {
     SRC_DIR="$DEFAULT_SRC_DIR"
     REPORT_FILE="$DEFAULT_REPORT_FILE"
