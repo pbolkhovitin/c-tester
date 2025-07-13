@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# C Project Tester v0.1.3
+# C Project Tester v0.1.5
 # Автоматизированное тестирование C проектов
 # Лицензия: MIT
 
@@ -29,10 +29,52 @@ declare SRC_DIR=""
 declare REPORT_FILE=""
 declare TEST_DATA_FILE=""
 declare CURRENT_DIR=""
+declare HAS_CLANG_FORMAT=false
 
 # ========================
 # ОСНОВНЫЕ ФУНКЦИИ
 # ========================
+
+init_config() {
+    SRC_DIR="$DEFAULT_SRC_DIR"
+    REPORT_FILE="$DEFAULT_REPORT_FILE"
+    TEST_DATA_FILE="$DEFAULT_TEST_DATA_FILE"
+    save_config
+    check_clang_format
+}
+
+check_clang_format() {
+    if [[ -f "$SRC_DIR/.clang-format" ]]; then
+        HAS_CLANG_FORMAT=true
+    else
+        HAS_CLANG_FORMAT=false
+    fi
+}
+
+copy_clang_format() {
+    local source_file="materials/linters/.clang-format"
+    local target_file="$SRC_DIR/.clang-format"
+    
+    show_section "Копирование .clang-format"
+    
+    if [[ ! -d "materials/linters" ]]; then
+        log_error "Папка materials/linters не найдена"
+        return 1
+    fi
+    
+    if [[ ! -f "$source_file" ]]; then
+        log_error "Исходный файл не найден: $source_file"
+        return 1
+    fi
+    
+    if cp "$source_file" "$target_file"; then
+        log_success "Файл .clang-format успешно скопирован в $SRC_DIR/"
+        HAS_CLANG_FORMAT=true
+    else
+        log_error "Ошибка при копировании файла"
+        return 1
+    fi
+}
 
 init_config() {
     SRC_DIR="$DEFAULT_SRC_DIR"
@@ -372,27 +414,36 @@ show_main_menu() {
         echo -e "${BLUE}========================================${NC}"
         echo -e "Рабочая директория: $(pwd)"
         echo -e "Папка исходников: ${YELLOW}$SRC_DIR${NC}"
-        echo ""
         
-        echo "1. Проверить стиль кода"
-        echo "2. Компиляция проекта"
-        echo "3. Запустить тесты"
-        echo "4. Проверить утечки памяти"
-        echo "5. Статический анализ"
-        echo "6. Настройки"
-        echo "7. Выход"
+        # Отображение статуса .clang-format
+        if $HAS_CLANG_FORMAT; then
+            echo -e "Файл стилей: ${GREEN}.clang-format присутствует${NC}"
+        else
+            echo -e "Файл стилей: ${RED}.clang-format отсутствует${NC}"
+        fi
+        
+        echo ""
+        echo "1. Копировать .clang-format в src/"
+        echo "2. Проверить стиль кода"
+        echo "3. Компиляция проекта"
+        echo "4. Запустить тесты"
+        echo "5. Проверить утечки памяти"
+        echo "6. Статический анализ"
+        echo "7. Настройки"
+        echo "8. Выход"
         echo ""
 
         read -rp "Выберите действие: " choice
 
         case "$choice" in
-            1) check_code_style ;;
-            2) show_compile_menu ;;
-            3) run_tests ;;
-            4) check_memory_leaks ;;
-            5) run_static_analysis ;;
-            6) show_settings_menu ;;
-            7) exit 0 ;;
+            1) copy_clang_format ;;
+            2) check_code_style ;;
+            3) show_compile_menu ;;
+            4) run_tests ;;
+            5) check_memory_leaks ;;
+            6) run_static_analysis ;;
+            7) show_settings_menu ;;
+            8) exit 0 ;;
             *) log_error "Неверный выбор" ;;
         esac
 
