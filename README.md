@@ -14,10 +14,11 @@
 git clone https://github.com/pbolkhovitin/c-tester.git
 cd c-tester
 chmod +x c_tester.sh
+```
 
 ## Использование
-
+ 
 ```bash
 ./c_tester.sh [--gui]
     -- gui - графический режим
-```bash
+```
