@@ -1,0 +1,29 @@
+name: Test Bash Script
+
+on:
+  push:
+    branches: [ main, master ]  # Запускать при пуше в main/master
+  pull_request:                # И при PR
+    branches: [ main, master ]
+
+jobs:
+  test-bash-script:
+    runs-on: ubuntu-latest      # Используем Ubuntu (можно выбрать другой runner)
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4  # Клонируем репозиторий
+
+      - name: Make script executable
+        run: chmod +x ./c_tester.sh  # Даем права на выполнение
+
+      - name: Run script with test input
+        run: ./c_tester.sh  # Запускаем скрипт с тестовыми данными
+
+      - name: Verify output (optional)
+        run: |
+          OUTPUT=$(./c_tester.sh)
+          if [[ "$OUTPUT" != "expected output" ]]; then
+            echo "Test failed: Unexpected output"
+            exit 1
+          fi
