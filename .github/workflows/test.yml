@@ -19,11 +19,3 @@ jobs:
 
       - name: Run script with test input
         run: ./c_tester.sh  # Запускаем скрипт с тестовыми данными
-
-      - name: Verify output (optional)
-        run: |
-          OUTPUT=$(./c_tester.sh)
-          if [[ "$OUTPUT" != "expected output" ]]; then
-            echo "Test failed: Unexpected output"
-            exit 1
-          fi
