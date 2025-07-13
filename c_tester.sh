@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# C Project Tester v0.1.3
+# C Project Tester v0.1.4
 # Автоматизированное тестирование C проектов
 # Лицензия: MIT
 
@@ -55,6 +55,25 @@ load_config() {
         source "$CONFIG_FILE"
     else
         init_config
+    fi
+}
+
+copy_clang_format() {
+    local source_file="materials/linters/.clang-format"
+    local target_file="$SRC_DIR/.clang-format"
+    
+    show_section "Копирование .clang-format"
+    
+    if [[ ! -f "$source_file" ]]; then
+        log_error "Исходный файл не найден: $source_file"
+        return 1
+    fi
+    
+    if cp "$source_file" "$target_file"; then
+        log_success "Файл .clang-format успешно скопирован в $SRC_DIR/"
+    else
+        log_error "Ошибка при копировании файла"
+        return 1
     fi
 }
 
@@ -380,7 +399,8 @@ show_main_menu() {
         echo "4. Проверить утечки памяти"
         echo "5. Статический анализ"
         echo "6. Настройки"
-        echo "7. Выход"
+        echo "7. Копировать .clang-format в src/"
+        echo "8. Выход"
         echo ""
 
         read -rp "Выберите действие: " choice
@@ -392,7 +412,8 @@ show_main_menu() {
             4) check_memory_leaks ;;
             5) run_static_analysis ;;
             6) show_settings_menu ;;
-            7) exit 0 ;;
+            7) copy_clang_format ;;
+            8) exit 0 ;;
             *) log_error "Неверный выбор" ;;
         esac
 
