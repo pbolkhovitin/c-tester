@@ -18,7 +18,7 @@ chmod +x c_tester.sh
 
 ## Использование
  
-```bash
+```
 ./c_tester.sh [--gui]
     -- gui - графический режим
 ```
